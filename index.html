@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neethi's Portfolio</title>
@@ -12,23 +10,23 @@
     <div class="nav-placeholder"></div>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="nav-menu">
                 <li><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#blogs">Blogs</a></li>
-                <li><a href="files/NeethiThevanThangiah.pdf" target="_blank">Resume</a></li>
+                <li><a href="files/NeethiThevanThangiah_Resume.pdf" target="_blank">Resume</a></li>
             </ul>
         </nav>
         <h1 class="main-title">Welcome to My Portfolio</h1>
-        <p class="subtitle">Hi, I'm Neethi, an aspiring Cloud Solutions & Big Data Engineer.</p>
+        <p class="subtitle">Hi, I'm Neethi, a Cloud Solutions &amp; Big Data Engineer.</p>
     </header>
-
 
     <section id="about" class="about-box alternate-bg">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <p>Hello! I’m Neethi, a <strong>Cloud Solutions & Big Data Engineer</strong> passionate about building scalable, data-driven systems.</p>
+            <p>Hello! I’m Neethi, a <strong>Cloud Solutions &amp; Big Data Engineer</strong> passionate about building scalable, data-driven systems.</p>
             
             <p>With <strong>3 years of experience</strong> in cloud computing and data engineering, I specialize in designing efficient workflows and automating infrastructure.</p>
             
@@ -68,7 +66,7 @@
             </div>
         </div>
 
-        </div>
+        
     </section>
 
     <section id="blogs" class="blogs-box alternate-bg">
@@ -77,22 +75,63 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 MyPortfolio | Version: <span id="app-version"></span></p>
+        <p>© 2025 MyPortfolio | Version: <span id="app-version"></span></p>
         <p class="footer-quote">"One Step at a Time" – Every journey begins with progress. Keep moving forward.</p>
     </footer>
-    
     <script>
-        // Fetch the version file and update the footer dynamically
-        fetch('VERSION')
-            .then(response => response.text())
-            .then(data => {
-                const versionData = data.trim().split("\n"); // Read and split lines
-                const version = "V" + versionData[0]; // Add "V" prefix to the version
-                document.getElementById("app-version").textContent = version; 
-                document.getElementById("release-date").textContent = versionData[1]; // Second line is release date
-            })
-            .catch(error => console.error('Error fetching version:', error));
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fetch the version file and update the footer dynamically
+            fetch('VERSION')
+                .then(response => response.text())
+                .then(data => {
+                    const versionData = data.trim().split("\n");
+                    const version = "V" + versionData[0];
+                    const versionElement = document.getElementById("app-version");
+                    if (versionElement) {
+                        versionElement.textContent = version;
+                    }
+                })
+                .catch(error => console.error('Error fetching version:', error));
+
+            // Mobile Menu Toggle
+            const menu = document.getElementById("nav-menu");
+            const menuToggle = document.querySelector(".menu-toggle");
+
+            if (menuToggle && menu) {
+                menuToggle.addEventListener("click", function () {
+                    menu.classList.toggle("active");
+                    menuToggle.classList.toggle("open");
+
+                    // Prevent background scrolling when menu is open
+                    if (menu.classList.contains("active")) {
+                        document.body.classList.add("menu-open");
+                    } else {
+                        document.body.classList.remove("menu-open");
+                    }
+                });
+            }
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+                if (menu && menu.classList.contains("active")) {
+                    if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                        menu.classList.remove("active");
+                        menuToggle.classList.remove("open");
+                        document.body.classList.remove("menu-open");
+                    }
+                }
+            });
+
+            // Close menu after clicking a link (for better mobile UX)
+            document.querySelectorAll("#nav-menu a").forEach(link => {
+                link.addEventListener("click", function () {
+                    menu.classList.remove("active");
+                    menuToggle.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                });
+            });
+        });
+
     </script>
-    
-</body>
-</html>
+
+</body></html>

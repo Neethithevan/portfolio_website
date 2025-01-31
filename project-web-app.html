@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AWS Static Website Deployment</title>
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/project_style.css">
+    <link rel="icon" type="image/png" href="images/favicon_64x64.png">
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#architecture">Architecture</a></li>
@@ -34,7 +34,7 @@
             <div class="overview-text">
                 <p><strong>Deploying a static website on AWS</strong> using Terraform for Infrastructure as Code. This setup ensures:</p>
                 <ul class="overview-list">
-                    <li><span>⚡</span> High availability with Amazon S3 & CloudFront</li>
+                    <li><span>⚡</span> High availability with Amazon S3 &amp; CloudFront</li>
                     <li><span>🛡️</span> Secure HTTPS encryption via AWS Certificate Manager</li>
                     <li><span>🌍</span> Fast global content delivery with CloudFront CDN</li>
                     <li><span>🔄</span> Automated infrastructure deployment using Terraform</li>
@@ -60,7 +60,7 @@
         <div class="steps-grid">
             <div class="step"><h3>Step 1: Setup Terraform</h3><p>Write Terraform scripts to define AWS resources like S3, CloudFront, and Route 53.</p></div>
             <div class="step"><h3>Step 2: Deploy Infrastructure</h3><p>Use Terraform to provision AWS resources automatically.</p></div>
-            <div class="step"><h3>Step 3: Configure CloudFront</h3><p>Optimize website speed & security with CloudFront CDN.</p></div>
+            <div class="step"><h3>Step 3: Configure CloudFront</h3><p>Optimize website speed &amp; security with CloudFront CDN.</p></div>
             <div class="step"><h3>Step 4: Secure Website with SSL</h3><p>Enable HTTPS using AWS Certificate Manager.</p></div>
             <div class="step"><h3>Step 5: Automate Deployments</h3><p>Use GitHub Actions for CI/CD updates.</p></div>
         </div>
@@ -79,27 +79,70 @@
     </section>
 
     <section id="challenges" class="content-box">
-        <h2 class="section-title">Challenges & Learnings</h2>
+        <h2 class="section-title">Challenges &amp; Learnings</h2>
         <div class="challenges-list">
             <div class="challenge"><h3>Managing Infrastructure as Code</h3><p>Automating AWS resource provisioning with Terraform.</p></div>
             <div class="challenge"><h3>Automating Deployments</h3><p>Building CI/CD pipelines using GitHub Actions.</p></div>
         </div>
     </section>
     <footer>
-        <p>&copy; 2025 MyPortfolio | Version: <span id="app-version"></span></p>
+        <p>© 2025 MyPortfolio | Version: <span id="app-version"></span></p>
         <p class="footer-quote">"One Step at a Time" – Every journey begins with progress. Keep moving forward.</p>
     </footer>
     <script>
-        // Fetch the version file and update the footer dynamically
-        fetch('VERSION')
-            .then(response => response.text())
-            .then(data => {
-                const versionData = data.trim().split("\n"); // Read and split lines
-                const version = "V" + versionData[0]; // Add "V" prefix to the version
-                document.getElementById("app-version").textContent = version; 
-                document.getElementById("release-date").textContent = versionData[1]; // Second line is release date
-            })
-            .catch(error => console.error('Error fetching version:', error));
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fetch the version file and update the footer dynamically
+            fetch('VERSION')
+                .then(response => response.text())
+                .then(data => {
+                    const versionData = data.trim().split("\n");
+                    const version = "V" + versionData[0];
+                    const versionElement = document.getElementById("app-version");
+                    if (versionElement) {
+                        versionElement.textContent = version;
+                    }
+                })
+                .catch(error => console.error('Error fetching version:', error));
+
+            // Mobile Menu Toggle
+            const menu = document.getElementById("nav-menu");
+            const menuToggle = document.querySelector(".menu-toggle");
+
+            if (menuToggle && menu) {
+                menuToggle.addEventListener("click", function () {
+                    menu.classList.toggle("active");
+                    menuToggle.classList.toggle("open");
+
+                    // Prevent background scrolling when menu is open
+                    if (menu.classList.contains("active")) {
+                        document.body.classList.add("menu-open");
+                    } else {
+                        document.body.classList.remove("menu-open");
+                    }
+                });
+            }
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+                if (menu && menu.classList.contains("active")) {
+                    if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                        menu.classList.remove("active");
+                        menuToggle.classList.remove("open");
+                        document.body.classList.remove("menu-open");
+                    }
+                }
+            });
+
+            // Close menu after clicking a link (for better mobile UX)
+            document.querySelectorAll("#nav-menu a").forEach(link => {
+                link.addEventListener("click", function () {
+                    menu.classList.remove("active");
+                    menuToggle.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                });
+            });
+        });
+
     </script>
-</body>
-</html>
+
+</body></html>
