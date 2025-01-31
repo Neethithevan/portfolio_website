@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Static Website Deployment</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- <div class="logo">Projects</div> -->
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#steps">Deployment Steps</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="section-title">Deploying a Static Website on AWS</h1>
+            <p>Learn how to set up a secure, scalable, and cost-effective static website using AWS and Terraform.</p>
+        </div>
+    </section>
+
+    <section id="overview" class="content-box">
+        <h2 class="section-title">Project Overview</h2>
+        <div class="overview-content">
+            <p>This project focuses on deploying a static website on AWS using Terraform for infrastructure as code, ensuring automation and reproducibility.</p>
+            <div class="overview-grid">
+                <div class="overview-item"><strong>Amazon S3:</strong> Securely hosts static website files.</div>
+                <div class="overview-item"><strong>CloudFront:</strong> Speeds up content delivery globally.</div>
+                <div class="overview-item"><strong>Route 53:</strong> Handles domain name resolution and management.</div>
+                <div class="overview-item"><strong>Certificate Manager:</strong> Ensures HTTPS security.</div>
+                <div class="overview-item"><strong>Terraform:</strong> Automates infrastructure deployment.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture" class="content-box">
+        <h2 class="section-title">Architecture</h2>
+        <p>The serverless architecture leverages AWS services to deliver a high-availability, low-latency website.</p>
+        <div class="image-container">
+            <img src="images/webapp-architecture.png" alt="AWS Deployment Architecture" style="max-width: 70%; height: auto;">
+        </div>
+    </section>
+
+    <section id="steps" class="content-box">
+        <h2 class="section-title">Deployment Steps</h2>
+        <div class="steps-grid">
+            <div class="step"><h3>Step 1: Setup Terraform</h3><p>Write Terraform scripts to define AWS resources including S3, CloudFront, and Route 53.</p></div>
+            <div class="step"><h3>Step 2: Deploy Infrastructure</h3><p>Use Terraform to create AWS resources in a repeatable manner.</p></div>
+            <div class="step"><h3>Step 3: Configure CloudFront</h3><p>Set up CloudFront distribution to enhance website speed and security.</p></div>
+            <div class="step"><h3>Step 4: Secure Website with SSL</h3><p>Use AWS Certificate Manager to apply SSL/TLS encryption.</p></div>
+            <div class="step"><h3>Step 5: Automate Deployments</h3><p>Implement CI/CD with GitHub Actions to update content seamlessly.</p></div>
+        </div>
+    </section>
+
+    <section id="tech-stack" class="content-box">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="tech-grid">
+            <div class="tech"><img src="images/s3-bucket-logo.png" alt="S3"><p>Amazon S3</p></div>
+            <div class="tech"><img src="images/cloudfront-logo.png" alt="CloudFront"><p>CloudFront CDN</p></div>
+            <div class="tech"><img src="images/route53-logo.png" alt="Route 53"><p>Route 53 DNS</p></div>
+        </div>
+        <div class="tech-grid">
+            <div class="tech"><img src="images/certificate-manager.png" alt="AWS Certificate Manager"><p>AWS Certificate Manager</p></div>
+            <div class="tech"><img src="images/github-actions.png" alt="GitHub Actions"><p>GitHub Actions</p></div>
+            <div class="tech"><img src="images/terraform-logo.png" alt="Terraform"><p>Terraform</p></div>
+        </div>
+    </section>
+
+    <section id="challenges" class="content-box">
+        <h2 class="section-title">Challenges & Learnings</h2>
+        <div class="challenges-list">
+            <div class="challenge"><h3>Managing Infrastructure as Code</h3><p>Using Terraform to automate AWS resource provisioning and management.</p></div>
+            <div class="challenge"><h3>Automating Deployments</h3><p>Developed CI/CD pipelines using GitHub Actions for efficient deployments.</p></div>
+            <div class="challenge"><h3>Performance Optimization</h3><p>Configured CloudFront caching policies and Lambda@Edge for reduced latency.</p></div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="footer-text">&copy; 2025 Neethi. Powered by AWS & Terraform.</p>
+    </footer>
+</body>
+</html>
