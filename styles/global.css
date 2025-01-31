@@ -1,0 +1,73 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #1a1a40, #3a2e73, #292e49);
+    color: white;
+    text-align: center;
+}
+
+/* Prevent section headers from being hidden behind navbar */
+section {
+    scroll-margin-top: 100px; /* Adjust according to navbar height */
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+
+/* Navigation */
+/* Fixed Navbar */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px 0; /* This should be at least 15px */
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Spacer to Prevent Overlap */
+.nav-placeholder {
+    height: 80px; /* Creates space below the navbar */
+}
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #1dbf73;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Personal Quote Styling */
+.footer-quote {
+    font-size: 1rem;
+    font-style: italic;
+    color: #1dbf73;
+    margin-top: 5px;
+}

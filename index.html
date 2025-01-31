@@ -4,59 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neethi's Portfolio</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/home_style.css">
     <link rel="icon" type="image/png" href="images/favicon_64x64.png">
 </head>
 <body>
+    <div class="nav-placeholder"></div>
     <header>
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="files/NeethiThevanThangiah.pdf" target="_blank">Resume</a></li>
             </ul>
         </nav>
         <h1 class="main-title">Welcome to My Portfolio</h1>
         <p class="subtitle">Hi, I'm Neethi, an aspiring Cloud Solutions & Big Data Engineer.</p>
     </header>
 
-    <section id="about" class="about-box dynamic-size">
+
+    <section id="about" class="about-box alternate-bg">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <p><strong>🚀 This is my professional portfolio!</strong> </div></p>
-            <p>I am passionate about <strong>Cloud Solutions and Big Data Engineering</strong>.</p>
-            <p>With <strong>3 years of experience</strong> in designing and deploying scalable cloud solutions, I enjoy building <strong>data-driven systems</strong> that make a difference.</p>
-            <p>Beyond my professional work, I love <strong>collaborating on exciting projects</strong>, whether it's in AI, cloud computing, or big data.</p>
-            <p>🌟 <strong>I am AWS Certified</strong> as both a <strong>Cloud Practitioner</strong> and <strong>Data Engineering Associate</strong>.</p>
-            <p>In my free time, I enjoy <strong>CrossFit</strong>, <strong>playing badminton</strong>, and indulging in <strong>lighthearted, fun activities</strong>.</p>
+            <p>Hello! I’m Neethi, a <strong>Cloud Solutions & Big Data Engineer</strong> passionate about building scalable, data-driven systems.</p>
+            
+            <p>With <strong>3 years of experience</strong> in cloud computing and data engineering, I specialize in designing efficient workflows and automating infrastructure.</p>
+            
+            <p>I am <strong>AWS Certified</strong> as a Cloud Practitioner and Data Engineering Associate, ensuring secure and high-performance cloud architectures.</p>
+            
+            <p>When I’m not working with cloud technologies, I enjoy <strong>CrossFit</strong>, <strong>badminton</strong>, and collaborating on exciting AI and data projects.</p>
+    
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <a href="mailto:thenineethi@gmail.com" target="_blank">
+                    <img src="images/email.png" alt="Email Icon">
+                </a>
+                <a href="https://www.linkedin.com/in/neethi-thangiah/" target="_blank">
+                    <img src="images/linkedin.png" alt="LinkedIn Icon">
+                </a>
+                <a href="https://github.com/Neethithevan" target="_blank">
+                    <img src="images/github.png" alt="GitHub Icon">
+                </a>
+            </div>
         </div>
     </section>
+    
+    
 
-    <section id="projects" class="projects-box small-projects">
+    <section id="projects" class="projects-box alternate-bg">
         <h2 class="section-title">Projects</h2>
+        <div class="section-divider"></div> <!-- This adds a subtle divider -->
         <div class="project-grid">
             <div class="project">
-                <h3 class="project-title"><a href="project-web-app.html" class="project-link">Deploying a Scalable Website Using AWS Services</a></h3>
-                <a href="project-web-app.html">
-                    <img src="images/web-app-project-thumbnail.png" alt="AWS Scalable Website Project" class="project-img">
+                <a href="project-web-app.html" class="project-link">
+                    <img src="images/web-app-project-overview.png" alt="AWS Scalable Website Project">
+                    <div class="project-info">
+                        <h3>Deploying a Scalable Website Using AWS</h3>
+                        <p>Built and deployed a highly scalable AWS-based web application with auto-scaling and cloud security best practices.</p>
+                    </div>
                 </a>
-                <p class="project-description">Click the image to learn how I built and deployed a scalable website using AWS services.</p>
             </div>
-            <!-- Add more projects manually here -->
+        </div>
+
         </div>
     </section>
 
-    <section id="contact" class="contact-box formatted-contact">
-        <h2 class="section-title">Contact Me</h2>
-        <div class="contact-content">
-            <p><strong>Email:</strong> <a href="mailto:thenineethi@gmail.com" target="_blank">thenineethi@gmail.com</a></p>
-            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/neethi-thangiah/" target="_blank">linkedin.com/in/neethi-thangiah</a></p>
-        </div>
+    <section id="blogs" class="blogs-box alternate-bg">
+        <h2 class="section-title">Blogs</h2>
+        <p class="blog-placeholder">🚀 Exciting updates coming soon! Stay tuned for insightful blogs on Cloud Computing, Big Data, and more.</p>
     </section>
 
     <footer>
-        <p class="footer-text">&copy; 2025 Neethi. Powered by AWS.</p>
+        <p>&copy; 2025 MyPortfolio | Version: <span id="app-version"></span></p>
+        <p class="footer-quote">"One Step at a Time" – Every journey begins with progress. Keep moving forward.</p>
     </footer>
+    
+    <script>
+        // Fetch the version file and update the footer dynamically
+        fetch('VERSION')
+            .then(response => response.text())
+            .then(data => {
+                const versionData = data.trim().split("\n"); // Read and split lines
+                const version = "V" + versionData[0]; // Add "V" prefix to the version
+                document.getElementById("app-version").textContent = version; 
+                document.getElementById("release-date").textContent = versionData[1]; // Second line is release date
+            })
+            .catch(error => console.error('Error fetching version:', error));
+    </script>
+    
 </body>
 </html>
