@@ -4,13 +4,9 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "VERSION"
   push:
     branches:
       - main
-    paths:
-      - "VERSION"
 
 jobs:
   version_check_before_merge:
@@ -39,12 +35,24 @@ jobs:
           echo "New Version: $NEW_VERSION"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
-      # Compare versions and fail if they are the same
+      # Check if any other files changed in the PR
+      - name: Check for Code Changes
+        id: code_changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -v "VERSION" || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "❌ No code changes detected. Version update must be accompanied by actual changes."
+            exit 1
+          else
+            echo "✅ Code changes detected. Proceeding with version check."
+          fi
+
+      # Enforce version increment only if there are code changes
       - name: Enforce Version Increment Before Merge
         run: |
           if [ "$PREV_VERSION" == "$NEW_VERSION" ]; then
             echo "❌ Version has not changed. Please update the VERSION file before merging."
             exit 1
           else
-            echo "✅ Version updated. Merge allowed."
+            echo "✅ Version updated correctly. Merge allowed."
           fi
