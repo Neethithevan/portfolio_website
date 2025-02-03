@@ -1,4 +1,4 @@
-name: Check Version Before Merge & Upload After Merge
+name: Check Version
 
 on:
   pull_request:
