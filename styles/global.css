@@ -1,0 +1,160 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #1a1a40, #3a2e73, #292e49);
+    color: white;
+    text-align: center;
+}
+
+/* Prevent section headers from being hidden behind navbar */
+section {
+    scroll-margin-top: 100px; /* Adjust according to navbar height */
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Navigation Bar */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+
+/* NAVIGATION MENU */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* NAVIGATION LINKS */
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 18px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #1dbf73;
+    transform: scale(1.1);
+}
+
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1100;
+}
+
+/* SAFARI SPECIFIC FIXES */
+body.menu-open {
+    overflow: hidden; /* Prevent scrolling when menu is open */
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        padding: 15px;
+        flex-direction: row;
+    }
+
+    .menu-toggle {
+        display: block;
+        z-index: 2000;
+        position: relative;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 75%;
+        height: 100vh; /* Ensure it takes full height */
+        min-height: 100vh; /* Extra support for Safari */
+        background: rgba(0, 0, 0, 0.95);
+        padding-top: 80px;
+        transition: left 0.4s ease-in-out;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+        overflow-y: auto; /* Allow scrolling if menu has many items */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for Safari */
+    }
+
+    nav ul.active {
+        left: 0;
+    }
+
+    nav ul li {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    nav ul li a {
+        font-size: 20px;
+        display: block;
+        padding: 15px;
+        transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    /* Ensure body does not scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+
+
+
+/* Header Text */
+.main-title {
+    font-size: 2.5rem;
+    margin-top: 100px; /* Adjusts header spacing */
+}
+
+.subtitle {
+    font-size: 1.2rem;
+}
+
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Personal Quote Styling */
+.footer-quote {
+    font-size: 1rem;
+    font-style: italic;
+    color: #1dbf73;
+    margin-top: 5px;
+}
