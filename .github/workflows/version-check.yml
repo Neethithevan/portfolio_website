@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  version_check_before_merge:
+  version_check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
@@ -36,10 +36,11 @@ jobs:
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       # ✅ Check for Code Changes in PR
-      - name: Check for Code Changes
+            - name: Check for Code Changes
         id: code_changes
         run: |
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -v "VERSION" || true)
+          git fetch origin main --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/main..HEAD | grep -v "VERSION" || true)
           if [ -z "$CHANGED_FILES" ]; then
             echo "❌ No code changes detected. Version update must be accompanied by actual changes."
             exit 1
