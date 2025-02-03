@@ -43,4 +43,4 @@ jobs:
           S3_DESTINATION_PATH="V${{ env.VERSION }}"
 
           echo "🚀 Deploying files to s3://$S3_BUCKET/"
-          aws s3 sync . s3://$S3_BUCKET/$S3_DESTINATION_PATH --exclude ".git/*" --delete
+          aws s3 sync . s3://$S3_BUCKET/ --exclude ".git/*" --delete
