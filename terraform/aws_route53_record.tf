@@ -8,7 +8,6 @@ resource "aws_route53_zone" "primary_zone" {
   tags = var.common_tags
 }
 
-
 # ========================================================================
 # ✅ CREATE A DNS RECORD FOR THE ROOT DOMAIN (example.com → CloudFront)
 # ========================================================================
