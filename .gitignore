@@ -1,0 +1,6 @@
+# Ignore Terraform cache and state locks
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+.DS_Store

@@ -1,0 +1,75 @@
+name: Check Version Before Merge & Upload After Merge
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "VERSION"
+  push:
+    branches:
+      - main
+    paths:
+      - "VERSION"
+
+jobs:
+  version_check_before_merge:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Get the previous version from the main branch
+      - name: Get Previous Version from Main
+        id: prev_version
+        run: |
+          git fetch origin main --depth=1
+          PREV_VERSION=$(git show origin/main:VERSION || echo "0.0.0")
+          echo "Previous Version: $PREV_VERSION"
+          echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
+
+      # Get the new version from the PR branch
+      - name: Get New Version from PR Branch
+        id: new_version
+        run: |
+          NEW_VERSION=$(cat VERSION || echo "0.0.0")
+          echo "New Version: $NEW_VERSION"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      # Compare versions and fail if they are the same
+      - name: Enforce Version Increment Before Merge
+        run: |
+          if [ "$PREV_VERSION" == "$NEW_VERSION" ]; then
+            echo "❌ Version has not changed. Please update the VERSION file before merging."
+            exit 1
+          else
+            echo "✅ Version updated. Merge allowed."
+          fi
+
+  upload_to_s3_after_merge:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Configure AWS credentials from GitHub Secrets
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Upload VERSION file to S3
+      - name: Upload VERSION File to S3
+        run: |
+          S3_BUCKET="my-s3-bucket"
+          S3_PATH="versions/VERSION"
+          aws s3 cp VERSION s3://$S3_BUCKET/$S3_PATH
+          echo "✅ Uploaded VERSION file to s3://$S3_BUCKET/$S3_PATH"
