@@ -295,3 +295,45 @@ footer {
         align-items: center;
     }
 }
+
+/* Keyframes for a pulse effect */
+@keyframes pulse {
+    0% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.info-banner {
+    /* Base styles */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 60px;
+    
+    /* Animation */
+    animation: pulse 3s infinite;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.info-banner {
+    /* Existing styles... */
+    animation: pulse 3s infinite, slideDown 0.8s ease-out;
+}
