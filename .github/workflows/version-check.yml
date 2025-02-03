@@ -4,47 +4,76 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "VERSION"
   push:
     branches:
       - main
-    paths:
-      - "VERSION"
 
 jobs:
-  version_check_before_merge:
+  version_check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # ✅ Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Get the previous version from the main branch
-      - name: Get Previous Version from Main
+      # ✅ Get Previous Version from Main Branch
+      - name: Get Previous Version
         id: prev_version
         run: |
           git fetch origin main --depth=1
-          PREV_VERSION=$(git show origin/main:VERSION || echo "0.0.0")
+          PREV_VERSION=$(git show origin/main:VERSION || echo "0.0")
           echo "Previous Version: $PREV_VERSION"
           echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
 
-      # Get the new version from the PR branch
-      - name: Get New Version from PR Branch
+      # ✅ Get New Version from PR Branch
+      - name: Get New Version
         id: new_version
         run: |
-          NEW_VERSION=$(cat VERSION || echo "0.0.0")
+          NEW_VERSION=$(cat VERSION | tr -d '[:space:]')
           echo "New Version: $NEW_VERSION"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
-      # Compare versions and fail if they are the same
-      - name: Enforce Version Increment Before Merge
+      # ✅ Check for Code Changes in PR
+            - name: Check for Code Changes
+        id: code_changes
         run: |
-          if [ "$PREV_VERSION" == "$NEW_VERSION" ]; then
-            echo "❌ Version has not changed. Please update the VERSION file before merging."
+          git fetch origin main --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/main..HEAD | grep -v "VERSION" || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "❌ No code changes detected. Version update must be accompanied by actual changes."
             exit 1
           else
-            echo "✅ Version updated. Merge allowed."
+            echo "✅ Code changes detected. Proceeding with version check."
+          fi
+
+      # ✅ Validate Version Format (Ensure Numeric Format)
+      - name: Validate Version Format
+        run: |
+          if ! [[ "$NEW_VERSION" =~ ^[0-9]+(\.[0-9]+){0,2}$ ]]; then
+            echo "❌ Invalid version format! Expected format: 'X.Y' or 'X.Y.Z' (e.g., '1.0' or '1.2.3')."
+            exit 1
+          else
+            echo "✅ Version format is valid."
+          fi
+
+      # ✅ Enforce Version Increment (New Version > Old Version)
+      - name: Enforce Version Increment
+        run: |
+          NEW_MAJOR=$(echo "$NEW_VERSION" | cut -d. -f1)
+          NEW_MINOR=$(echo "$NEW_VERSION" | cut -d. -f2)
+          NEW_PATCH=$(echo "$NEW_VERSION" | cut -d. -f3 || echo 0)
+
+          PREV_MAJOR=$(echo "$PREV_VERSION" | cut -d. -f1)
+          PREV_MINOR=$(echo "$PREV_VERSION" | cut -d. -f2)
+          PREV_PATCH=$(echo "$PREV_VERSION" | cut -d. -f3 || echo 0)
+
+          if [[ "$NEW_MAJOR" -lt "$PREV_MAJOR" ]] || \
+             [[ "$NEW_MAJOR" -eq "$PREV_MAJOR" && "$NEW_MINOR" -lt "$PREV_MINOR" ]] || \
+             [[ "$NEW_MAJOR" -eq "$PREV_MAJOR" && "$NEW_MINOR" -eq "$PREV_MINOR" && "$NEW_PATCH" -le "$PREV_PATCH" ]]; then
+            echo "❌ Version must be incremented! Previous: $PREV_VERSION, New: $NEW_VERSION."
+            exit 1
+          else
+            echo "✅ Version increment verified. Proceeding."
           fi
