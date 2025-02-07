@@ -88,6 +88,7 @@ h2.section-title {
 .social-icons a img {
     width: 40px;
     height: 40px;
+    border-radius: 20%; /* Makes edges fully round */
     transition: transform 0.3s ease-in-out;
 }
 
