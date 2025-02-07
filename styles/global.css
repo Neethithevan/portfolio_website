@@ -88,9 +88,8 @@ body.menu-open {
         position: fixed;
         top: 0;
         left: -100%;
-        width: 75%;
-        height: 100vh; /* Ensure it takes full height */
-        min-height: 100vh; /* Extra support for Safari */
+        width: 50%;
+        height: 75vh;
         background: rgba(0, 0, 0, 0.95);
         padding-top: 80px;
         transition: left 0.4s ease-in-out;
