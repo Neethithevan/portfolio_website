@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto-Gamble: Real-time Meme Coin Monitoring</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/project_style.css">
+    <link rel="icon" type="image/png" href="images/favicon_64x64.png">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#steps">Deployment Steps</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="https://github.com/Neethithevan/flink-kafka-streaming" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="tech-info" class="info-banner">
+        <p>
+            This project monitors real-time meme coin trends from Reddit, processing sentiment analysis using Kubernetes, Apache Flink, Kafka, Airflow, and PostgreSQL.
+        </p>
+    </section>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="section-title">Crypto-Gamble: Real-time Meme Coin Analytics</h1>
+            <p>Analyze and track new meme coin trends based on Reddit sentiment and post activity.</p>
+        </div>
+    </section>
+
+    <section id="overview" class="content-box">
+        <h2 class="section-title">Project Overview</h2>
+        <div class="overview-container">
+            <div class="overview-text">
+                <p><strong>Crypto-Gamble</strong> is a cloud-native analytics platform designed to detect new meme coins from Reddit posts and track their sentiment over time. The system ensures:</p>
+                <ul class="overview-list">
+                    <li><span>⚡</span> Real-time Reddit post ingestion and processing</li>
+                    <li><span>🔄</span> Scalable Kafka-based streaming architecture</li>
+                    <li><span>📊</span> Sentiment analysis for meme coin trends</li>
+                    <li><span>☁️</span> Containerized deployment with Kubernetes</li>
+                    <li><span>🚀</span> Workflow automation via Apache Airflow</li>
+                </ul>
+            </div>
+            <div class="overview-image">
+                <img src="images/crypto-gamble-project-overview.png" alt="Crypto-Gamble Overview">
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture" class="content-box">
+        <h2 class="section-title">Architecture</h2>
+        <p>A cloud-native, distributed architecture using Kubernetes, Kafka, Flink, Airflow, and PostgreSQL.</p>
+        <div class="image-container">
+            <img src="images/crypto-gamble-architecture.png" alt="Crypto-Gamble Architecture">
+        </div>
+    </section>
+
+    <section id="steps" class="content-box">
+        <h2 class="section-title">Deployment Steps</h2>
+        <div class="steps-grid">
+            <div class="step"><h3>Step 1: Configure Reddit API</h3><p>Set up API keys and authentication for Reddit post ingestion.</p></div>
+            <div class="step"><h3>Step 2: Kafka Setup</h3><p>Configure Kafka topics for real-time streaming.</p></div>
+            <div class="step"><h3>Step 3: Flink Processing</h3><p>Develop Flink jobs for real-time sentiment analysis.</p></div>
+            <div class="step"><h3>Step 4: Kubernetes Deployment</h3><p>Deploy services inside a Kubernetes cluster.</p></div>
+            <div class="step"><h3>Step 5: Airflow Orchestration</h3><p>Schedule and manage pipeline execution with Airflow.</p></div>
+            <div class="step"><h3>Step 6: Visualization</h3><p>Use Grafana for real-time sentiment trends and insights.</p></div>
+        </div>
+    </section>
+
+    <section id="tech-stack" class="content-box">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="tech-grid">
+            <div class="tech"><img src="images/kafka-logo.png" alt="Apache Kafka"><p>Apache Kafka</p></div>
+            <div class="tech"><img src="images/flink-logo.png" alt="Apache Flink"><p>Apache Flink</p></div>
+            <div class="tech"><img src="images/kubernetes-logo.png" alt="Kubernetes"><p>Kubernetes</p></div>
+            <div class="tech"><img src="images/airflow-logo.png" alt="Apache Airflow"><p>Apache Airflow</p></div>
+            <div class="tech"><img src="images/postgresql-logo.png" alt="PostgreSQL"><p>PostgreSQL</p></div>
+            <div class="tech"><img src="images/grafana-logo.png" alt="Grafana"><p>Grafana</p></div>
+        </div>
+    </section>
+
+    <section id="challenges" class="content-box">
+        <h2 class="section-title">Challenges & Learnings</h2>
+        <div class="challenges-list">
+            <div class="challenge"><h3>Ensuring Data Accuracy</h3><p>Filtering noise from Reddit data to enhance sentiment precision.</p></div>
+            <div class="challenge"><h3>Scaling Real-Time Processing</h3><p>Optimizing Flink jobs for high-throughput data.</p></div>
+            <div class="challenge"><h3>Deploying Secure Pipelines</h3><p>Configuring Kubernetes for reliable and scalable deployments.</p></div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2025 MyPortfolio | Version: <span id="app-version"></span></p>
+        <p class="footer-quote">"One Step at a Time" – Every journey begins with progress. Keep moving forward.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('VERSION')
+                .then(response => response.text())
+                .then(data => {
+                    const versionData = data.trim().split("\n");
+                    const version = "V" + versionData[0];
+                    const versionElement = document.getElementById("app-version");
+                    if (versionElement) {
+                        versionElement.textContent = version;
+                    }
+                })
+                .catch(error => console.error('Error fetching version:', error));
+        });
+    </script>
+</body>
+</html>
