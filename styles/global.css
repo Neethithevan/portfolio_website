@@ -4,6 +4,8 @@ body {
     background: linear-gradient(to right, #1a1a40, #3a2e73, #292e49);
     color: white;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* Prevent section headers from being hidden behind navbar */
@@ -18,16 +20,12 @@ section {
 nav {
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.9);
     padding: 15px 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -37,7 +35,6 @@ nav ul {
     display: flex;
     justify-content: center;
     gap: 25px;
-    transition: all 0.3s ease-in-out;
 }
 
 /* NAVIGATION LINKS */
